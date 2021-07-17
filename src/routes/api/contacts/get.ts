@@ -43,7 +43,7 @@ export default function (router: Router, client: MongoClient): Router {
       await res.json(
         data.map((this_data) => {
           return {
-            _id: this_data.id,
+            id: this_data.id,
             first_name: this_data.first_name,
             last_name: this_data.last_name,
           } as PBPartialData;
