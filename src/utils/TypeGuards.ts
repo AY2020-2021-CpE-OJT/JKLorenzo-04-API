@@ -12,13 +12,18 @@ export function expect(
   const this_data = data as PBPartialData;
 
   if (expected.includes("id")) {
-    if (typeof this_data.id !== "string" || this_data.id.length !== 24) {
+    if (
+      !this_data ||
+      typeof this_data.id !== "string" ||
+      this_data.id.length !== 24
+    ) {
       throw new ExpectError(message ?? "INVALID_ID");
     }
   }
 
   if (expected.includes("first_name")) {
     if (
+      !this_data ||
       typeof this_data.first_name !== "string" ||
       safeFormat(this_data.first_name).length === 0
     ) {
@@ -28,6 +33,7 @@ export function expect(
 
   if (expected.includes("last_name")) {
     if (
+      !this_data ||
       typeof this_data.last_name !== "string" ||
       safeFormat(this_data.last_name).length === 0
     ) {
@@ -37,6 +43,7 @@ export function expect(
 
   if (expected.includes("phone_numbers")) {
     if (
+      !this_data ||
       !Array.isArray(this_data.phone_numbers) ||
       this_data.phone_numbers.some(
         (pnum) => typeof pnum !== "string" || safeFormat(pnum).length === 0
