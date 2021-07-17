@@ -9,7 +9,7 @@ export default function (router: Router, client: MongoClient): Router {
     console.log("contact get");
     try {
       // expect a valid id
-      expect({ _id: req.params.id }, ["id"]);
+      expect(req.params, ["id"]);
 
       // Get data from cache
       let data = CacheManager.get(req.params.id);
@@ -29,7 +29,7 @@ export default function (router: Router, client: MongoClient): Router {
 
         // construct
         data = {
-          _id: result._id?.toString(),
+          id: result._id?.toString(),
           first_name: result.first_name,
           last_name: result.last_name,
           phone_numbers: result.phone_numbers,

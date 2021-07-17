@@ -12,7 +12,7 @@ export default function (router: Router, client: MongoClient): Router {
       const update_data = {} as PBPartialData;
 
       // expect valid id
-      expect({ _id: req.params.id }, ["id"]);
+      expect(req.params, ["id"]);
 
       // expect valid data
       if ("first_name" in raw_data) {
@@ -47,7 +47,7 @@ export default function (router: Router, client: MongoClient): Router {
 
       // construct
       const data = {
-        _id: operation.value._id?.toString(),
+        id: operation.value._id?.toString(),
         first_name: operation.value.first_name,
         last_name: operation.value.last_name,
         phone_numbers: operation.value.phone_numbers,

@@ -1,12 +1,12 @@
 export interface PBData {
-  _id: string;
+  id: string;
   first_name: string;
   last_name: string;
   phone_numbers: string[];
 }
 
 export interface PBPartialData {
-  _id?: string;
+  id?: string;
   first_name?: string;
   last_name?: string;
   phone_numbers?: string[];

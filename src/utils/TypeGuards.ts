@@ -12,7 +12,7 @@ export function expect(
   const this_data = data as PBPartialData;
 
   if (expected.includes("id")) {
-    if (typeof this_data._id !== "string" || this_data._id.length !== 24) {
+    if (typeof this_data.id !== "string" || this_data.id.length !== 24) {
       throw new ExpectError(message ?? "INVALID_ID");
     }
   }

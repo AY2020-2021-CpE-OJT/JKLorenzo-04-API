@@ -31,7 +31,7 @@ export default function (router: Router, client: MongoClient): Router {
 
       // construct data
       const data = {
-        _id: operation.insertedId?.toString(),
+        id: operation.insertedId?.toString(),
         first_name: insert_data.first_name,
         last_name: insert_data.last_name,
         phone_numbers: insert_data.phone_numbers,

@@ -14,7 +14,7 @@ export default class CacheManager {
   }
 
   static update(data: PBData): void {
-    _cache.set(data._id, data);
+    _cache.set(data.id, data);
   }
 
   static updateAll(data: PBData[]): void {

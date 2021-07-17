@@ -9,7 +9,7 @@ export default function (router: Router, client: MongoClient): Router {
     console.log("contact delete");
     try {
       // expect a valid id
-      expect({ _id: req.params.id }, ["id"]);
+      expect(req.params, ["id"]);
 
       // update contact
       const operation = await client
@@ -24,7 +24,7 @@ export default function (router: Router, client: MongoClient): Router {
 
       // construct
       const data = {
-        _id: operation.value._id?.toString(),
+        id: operation.value._id?.toString(),
         first_name: operation.value.first_name,
         last_name: operation.value.last_name,
         phone_numbers: operation.value.phone_numbers,
@@ -34,7 +34,7 @@ export default function (router: Router, client: MongoClient): Router {
       expectAll(data, "UNEXPECTED_RESULT");
 
       // update cache
-      CacheManager.delete(data._id);
+      CacheManager.delete(data.id);
 
       // ack request
       await res.send("OK");

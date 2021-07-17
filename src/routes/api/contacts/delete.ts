@@ -19,7 +19,7 @@ export default function (router: Router, client: MongoClient): Router {
         .collection("contacts")
         .deleteMany({
           _id: {
-            $in: partial_data.map((data) => new express.ObjectID(data._id)),
+            $in: partial_data.map((data) => new express.ObjectID(data.id)),
           },
         });
 
