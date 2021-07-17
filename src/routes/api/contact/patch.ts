@@ -56,16 +56,17 @@ export default function (router: Router, client: MongoClient): Router {
       // check data
       expectAll(data, "UNEXPECTED_RESULT");
 
-      // update cache
-      CacheManager.update(data);
-
       // invalidate cache order on name change
+      const previous_data = CacheManager.get(data.id);
       if (
-        raw_data.first_name !== data.first_name ||
-        raw_data.last_name !== data.last_name
+        previous_data?.first_name !== data.first_name ||
+        previous_data?.last_name !== data.last_name
       ) {
         CacheManager.invalidateOrder();
       }
+
+      // update cache
+      CacheManager.update(data);
 
       // ack request
       await res.send("OK");
