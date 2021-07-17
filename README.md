@@ -9,7 +9,7 @@ A heroku-hosted API for the [task 4 phonebook app](https://github.com/AY2020-202
 | PBPartialData 	| {  id?: string;  first_name?: string;  last_name?: string;  phone_numbers?: string[]; } 	|
 
 
-### Endpoints
+## Endpoints
 
 | Method 	|       Route      	|                       Request Body                      	|                  Response Body                 	|
 |:------:	|:----------------:	|:-------------------------------------------------------:	|:----------------------------------------------:	|
@@ -21,7 +21,9 @@ A heroku-hosted API for the [task 4 phonebook app](https://github.com/AY2020-202
 |   GET  	|   /api/contacts  	|                           N/A                           	| {id, first_name, last_name} in PBPartialData[] 	|
 
 
-### Cache Manager Logic ( * = remains unchanged )
+## Cache Manager Logic
+
+#### * = remains unchanged
 
 | Method 	| Route            	| Description                                                                                                                                                                            	| isValid 	| isOrdered 	|
 |--------	|------------------	|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|---------	|-----------	|
@@ -32,11 +34,13 @@ A heroku-hosted API for the [task 4 phonebook app](https://github.com/AY2020-202
 | DELETE 	| /api/contacts    	| Deletes the contacts on the DB and cache. Sets the isValid() to false if at least 1 contact was deleted.                                                                               	| false*  	| *         	|
 | GET    	| /api/contacts    	| Returns the data from cache if isValid() and isOrdered() are true, else, will get all the contacts from the DB and updates the cache after, setting isValid() and isOrdered() to true. 	| true    	| true      	|
 
-### Type Guard Logic
+## Type Guard Logic
 
-|    Property   	|                                                      Requirement                                                     	|
-|:-------------:	|:--------------------------------------------------------------------------------------------------------------------:	|
-|       id      	|                          Data is not null or undefined; Id is a string with a length of 24.                          	|
-|   first_name  	|                   Data is not null or undefined; First name is a string with at least 1 character.                   	|
-|   last_name   	|                    Data is not null or undefined; Last name is a string with at least 1 character.                   	|
-| phone_numbers 	| Data is not null or undefined. Phone numbers is an array of strings with at least 1 character for each phone number. 	|
+#### * = default when custom error message is undefined
+
+|    Property   	|                                                      Requirement                                                     	|          Error         	|
+|:-------------:	|:--------------------------------------------------------------------------------------------------------------------:	|:----------------------:	|
+|       id      	|                          Data is not null or undefined; Id is a string with a length of 24.                          	|       INVALID_ID*      	|
+|   first_name  	|                   Data is not null or undefined; First name is a string with at least 1 character.                   	|   INVALID_FIRST_NAME*  	|
+|   last_name   	|                    Data is not null or undefined; Last name is a string with at least 1 character.                   	|   INVALID_LAST_NAME*   	|
+| phone_numbers 	| Data is not null or undefined. Phone numbers is an array of strings with at least 1 character for each phone number. 	| INVALID_PHONE_NUMBERS* 	|
