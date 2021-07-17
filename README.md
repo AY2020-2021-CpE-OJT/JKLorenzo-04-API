@@ -11,14 +11,14 @@ A heroku-hosted API for the [task 4 phonebook app](https://github.com/AY2020-202
 
 ### Endpoints
 
-| Method 	|       Route      	|                        Request Body                        	|                  Response Body                 	|
-|:------:	|:----------------:	|:----------------------------------------------------------:	|:----------------------------------------------:	|
-| DELETE 	| /api/contact/:id 	|                             N/A                            	|                      "OK"                      	|
-|   GET  	| /api/contact/:id 	|                             N/A                            	|                     PBData                     	|
-|  PATCH 	| /api/contact/:id 	| {first_name?, last_name?, phone_numbers?} as PBPartialData 	|                      "OK"                      	|
-|   PUT  	|   /api/contact   	|  {first_name, last_name, phone_numbers?} as PBPartialData  	|                     PBData                     	|
-| DELETE 	|   /api/contacts  	|                  {id}[] as PBPartialData[]                 	|                  delete count                  	|
-|   GET  	|   /api/contacts  	|                             N/A                            	| {id, first_name, last_name} as PBPartialData[] 	|
+| Method 	|       Route      	|                       Request Body                      	|                  Response Body                 	|
+|:------:	|:----------------:	|:-------------------------------------------------------:	|:----------------------------------------------:	|
+| DELETE 	| /api/contact/:id 	|                           N/A                           	|                      "OK"                      	|
+|   GET  	| /api/contact/:id 	|                           N/A                           	|                     PBData                     	|
+|  PATCH 	| /api/contact/:id 	| {first_name, last_name, phone_numbers} in PBPartialData 	|                      "OK"                      	|
+|   PUT  	|   /api/contact   	| {first_name, last_name, phone_numbers} in PBPartialData 	|                     PBData                     	|
+| DELETE 	|   /api/contacts  	|                 {id} in PBPartialData[]                 	|                  delete count                  	|
+|   GET  	|   /api/contacts  	|                           N/A                           	| {id, first_name, last_name} in PBPartialData[] 	|
 
 
 ### Cache Manager Logic ( * = remains unchanged )
@@ -31,3 +31,12 @@ A heroku-hosted API for the [task 4 phonebook app](https://github.com/AY2020-202
 | PUT    	| /api/contact     	| Inserts the data to the DB and cache and returns the inserted data. Sets the isOrdered() to false.                                                                                     	| *       	| false     	|
 | DELETE 	| /api/contacts    	| Deletes the contacts on the DB and cache. Sets the isValid() to false if at least 1 contact was deleted.                                                                               	| false*  	| *         	|
 | GET    	| /api/contacts    	| Returns the data from cache if isValid() and isOrdered() are true, else, will get all the contacts from the DB and updates the cache after, setting isValid() and isOrdered() to true. 	| true    	| true      	|
+
+### Type Guard Logic
+
+|    Property   	|                                                      Requirement                                                     	|
+|:-------------:	|:--------------------------------------------------------------------------------------------------------------------:	|
+|       id      	|                          Data is not null or undefined; Id is a string with a length of 24.                          	|
+|   first_name  	|                   Data is not null or undefined; First name is a string with at least 1 character.                   	|
+|   last_name   	|                    Data is not null or undefined; Last name is a string with at least 1 character.                   	|
+| phone_numbers 	| Data is not null or undefined. Phone numbers is an array of strings with at least 1 character for each phone number. 	|
